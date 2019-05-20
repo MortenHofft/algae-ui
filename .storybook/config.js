@@ -12,10 +12,13 @@ addDecorator(withKnobs);
 // Setup Storybook options
 addParameters({ options: { theme: gbifTheme } });
 
-// automatically import all files ending in *.stories.js
-const req = require.context('../stories', true, /\.stories\.js$/);
+// Load Stories
+const reqGeneral = require.context('../stories/general', true, /\.stories\.js$/);
+const reqComponents = require.context('../src/components', true, /\.stories\.js$/);
+
 function loadStories() {
-  req.keys().forEach(filename => req(filename));
+  reqGeneral.keys().forEach(filename => reqGeneral(filename));
+  reqComponents.keys().forEach(filename => reqComponents(filename));
 }
 
 configure(loadStories, module);
